@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baraka Codex | Learn Coding Online</title>
+    <link rel="icon" type="image/png" href="barakalogo.png">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Loader -->
+    <div class="loader" id="loader">
+        <div class="loader-content">
+            <img src="barakalogo.png" alt="Baraka Codex" class="loader-logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="loader-logo" style="display:none;">
+                <span class="loader-icon">BC</span>
+            </div>
+            <p>Baraka Codex...</p>
+        </div>
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="progress-bar" id="progressBar"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#" class="nav-logo">
+                <img src="barakalogo.png" alt="Baraka Codex" class="logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="logo-icon-advanced" style="display:none;">
+                    <span class="logo-bracket">&lt;</span>
+                    <span class="logo-letters">BC</span>
+                    <span class="logo-bracket">/&gt;</span>
+                </div>
+                <span class="logo-text">Baraka<span>Codex</span></span>
+            </a>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#home" class="nav-link active">Home</a></li>
+                <li><a href="#courses" class="nav-link">Courses</a></li>
+                <li><a href="#tutorials" class="nav-link">Tutorials</a></li>
+                <li><a href="#resources" class="nav-link">Resources</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="btn btn-primary">Start Learning</button>
+                <button class="theme-toggle" id="themeToggle"><i class="fas fa-moon"></i></button>
+                <button class="hamburger" id="hamburger">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-pattern"></div>
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <i class="fas fa-graduation-cap"></i>
+                    <span>Free Learning Platform</span>
+                </div>
+                <h1 class="hero-title">Master <span class="highlight">Coding</span> from Zero to Hero</h1>
+                <p class="hero-description">Learn web development, programming languages, and modern technologies with practical tutorials, real projects, and expert guidance.</p>
+                <div class="hero-stats">
+                    <div class="stat"><span class="stat-number">50+</span><span class="stat-label">Courses</span></div>
+                    <div class="stat"><span class="stat-number">200+</span><span class="stat-label">Tutorials</span></div>
+                    <div class="stat"><span class="stat-number">10K+</span><span class="stat-label">Students</span></div>
+                </div>
+                <div class="hero-cta">
+                    <a href="#courses" class="btn btn-primary btn-lg"><i class="fas fa-rocket"></i> Explore Courses</a>
+                    <a href="#tutorials" class="btn btn-secondary btn-lg"><i class="fas fa-play-circle"></i> Watch Tutorials</a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="code-editor">
+                    <div class="editor-header">
+                        <div class="editor-dots"><span></span><span></span><span></span></div>
+                        <span class="editor-title">learning.js</span>
+                    </div>
+                    <div class="editor-body">
+                        <pre><code><span class="comment">// Your coding journey starts here</span>
+<span class="keyword">const</span> <span class="variable">student</span> = {
+  <span class="property">name</span>: <span class="string">'Baraka'</span>,
+  <span class="property">level</span>: <span class="string">'Beginner'</span>,
+  <span class="property">goal</span>: <span class="string">'Full Stack Developer'</span>
+};
+
+<span class="keyword">function</span> <span class="function">startLearning</span>() {
+  <span class="keyword">return</span> <span class="string">"Welcome to Baraka Codex! 🚀"</span>;
+}
+
+<span class="function">startLearning</span>();</code></pre>
+                    </div>
+                </div>
+                <div class="floating-icons">
+                    <div class="float-icon"><i class="fab fa-html5"></i></div>
+                    <div class="float-icon"><i class="fab fa-css3-alt"></i></div>
+                    <div class="float-icon"><i class="fab fa-js"></i></div>
+                    <div class="float-icon"><i class="fab fa-react"></i></div>
+                    <div class="float-icon"><i class="fab fa-node"></i></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Learning Path Section -->
+    <section class="learning-path">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-subtitle">Your Journey</span>
+                <h2 class="section-title">Choose Your Learning Path</h2>
+                <p class="section-description">Structured paths to take you from beginner to professional</p>
+            </div>
+            <div class="paths-grid">
+                <div class="path-card">
+                    <div class="path-icon"><i class="fas fa-globe"></i></div>
+                    <h3>Frontend Development</h3>
+                    <p>HTML, CSS, JavaScript, React, Vue, and modern UI frameworks</p>
+                    <div class="path-meta"><span><i class="fas fa-book"></i> 15 Courses</span><span><i class="fas fa-clock"></i> 120 Hours</span></div>
+                    <a href="#" class="path-link">Start Path <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="path-card featured">
+                    <div class="path-badge">Popular</div>
+                    <div class="path-icon"><i class="fas fa-server"></i></div>
+                    <h3>Full Stack Development</h3>
+                    <p>Complete web development with frontend, backend, and databases</p>
+                    <div class="path-meta"><span><i class="fas fa-book"></i> 25 Courses</span><span><i class="fas fa-clock"></i> 200 Hours</span></div>
+                    <a href="#" class="path-link">Start Path <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="path-card">
+                    <div class="path-icon"><i class="fas fa-mobile-alt"></i></div>
+                    <h3>Mobile Development</h3>
+                    <p>React Native, Flutter, iOS and Android app development</p>
+                    <div class="path-meta"><span><i class="fas fa-book"></i> 12 Courses</span><span><i class="fas fa-clock"></i> 90 Hours</span></div>
+                    <a href="#" class="path-link">Start Path <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Courses Section -->
+    <section id="courses" class="courses">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-subtitle">Featured Courses</span>
+                <h2 class="section-title">Start Learning Today</h2>
+                <p class="section-description">Hand-picked courses to boost your skills</p>
+            </div>
+            
+            <div class="filter-tabs">
+                <button class="filter-tab active" data-filter="all">All</button>
+                <button class="filter-tab" data-filter="beginner">Beginner</button>
+                <button class="filter-tab" data-filter="intermediate">Intermediate</button>
+                <button class="filter-tab" data-filter="advanced">Advanced</button>
+            </div>
+            
+            <div class="courses-grid" id="coursesGrid">
+                <!-- Course 1 -->
+                <div class="course-card" data-level="beginner">
+                    <div class="course-image">
+                        <img src="https://images.unsplash.com/photo-1621839673705-6617adf9e890?w=600&h=350&fit=crop" alt="HTML CSS">
+                        <span class="course-level">Beginner</span>
+                        <button class="play-btn"><i class="fas fa-play"></i></button>
+                    </div>
+                    <div class="course-content">
+                        <h3>Web Development Fundamentals</h3>
+                        <p>Learn HTML5, CSS3, and responsive design from scratch. Build your first website!</p>
+                        <div class="course-stats">
+                            <span><i class="fas fa-book"></i> 24 Lessons</span>
+                            <span><i class="fas fa-clock"></i> 12 Hours</span>
+                            <span><i class="fas fa-users"></i> 2.5K</span>
+                        </div>
+                        <div class="course-footer">
+                            <div class="course-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <span>4.9</span>
+                            </div>
+                            <span class="course-free">Free</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Course 2 -->
+                <div class="course-card" data-level="beginner">
+                    <div class="course-image">
+                        <img src="https://images.unsplash.com/photo-1579468118864-1b9ea3c0db4a?w=600&h=350&fit=crop" alt="JavaScript">
+                        <span class="course-level">Beginner</span>
+                        <button class="play-btn"><i class="fas fa-play"></i></button>
+                    </div>
+                    <div class="course-content">
+                        <h3>JavaScript Mastery</h3>
+                        <p>Complete JavaScript course from basics to advanced concepts including ES6+ features.</p>
+                        <div class="course-stats">
+                            <span><i class="fas fa-book"></i> 40 Lessons</span>
+                            <span><i class="fas fa-clock"></i> 25 Hours</span>
+                            <span><i class="fas fa-users"></i> 3.2K</span>
+                        </div>
+                        <div class="course-footer">
+                            <div class="course-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <span>5.0</span>
+                            </div>
+                            <span class="course-free">Free</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Course 3 -->
+                <div class="course-card" data-level="intermediate">
+                    <div class="course-image">
+                        <img src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=600&h=350&fit=crop" alt="React">
+                        <span class="course-level">Intermediate</span>
+                        <button class="play-btn"><i class="fas fa-play"></i></button>
+                    </div>
+                    <div class="course-content">
+                        <h3>React.js Complete Guide</h3>
+                        <p>Build modern web apps with React, Hooks, Redux, and Next.js framework.</p>
+                        <div class="course-stats">
+                            <span><i class="fas fa-book"></i> 35 Lessons</span>
+                            <span><i class="fas fa-clock"></i> 28 Hours</span>
+                            <span><i class="fas fa-users"></i> 1.8K</span>
+                        </div>
+                        <div class="course-footer">
+                            <div class="course-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <span>4.8</span>
+                            </div>
+                            <span class="course-free">Free</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Course 4 -->
+                <div class="course-card" data-level="intermediate">
+                    <div class="course-image">
+                        <img src="https://images.unsplash.com/photo-1627398242454-45a1465c2479?w=600&h=350&fit=crop" alt="Node.js">
+                        <span class="course-level">Intermediate</span>
+                        <button class="play-btn"><i class="fas fa-play"></i></button>
+                    </div>
+                    <div class="course-content">
+                        <h3>Node.js Backend Development</h3>
+                        <p>Create REST APIs, work with databases, and deploy scalable backend applications.</p>
+                        <div class="course-stats">
+                            <span><i class="fas fa-book"></i> 30 Lessons</span>
+                            <span><i class="fas fa-clock"></i> 22 Hours</span>
+                            <span><i class="fas fa-users"></i> 1.2K</span>
+                        </div>
+                        <div class="course-footer">
+                            <div class="course-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <span>4.9</span>
+                            </div>
+                            <span class="course-free">Free</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Course 5 -->
+                <div class="course-card" data-level="advanced">
+                    <div class="course-image">
+                        <img src="https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=600&h=350&fit=crop" alt="Full Stack">
+                        <span class="course-level">Advanced</span>
+                        <button class="play-btn"><i class="fas fa-play"></i></button>
+                    </div>
+                    <div class="course-content">
+                        <h3>Full Stack Project Course</h3>
+                        <p>Build a complete SaaS application with MERN stack from scratch to deployment.</p>
+                        <div class="course-stats">
+                            <span><i class="fas fa-book"></i> 50 Lessons</span>
+                            <span><i class="fas fa-clock"></i> 40 Hours</span>
+                            <span><i class="fas fa-users"></i> 950</span>
+                        </div>
+                        <div class="course-footer">
+                            <div class="course-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <span>5.0</span>
+                            </div>
+                            <span class="course-free">Free</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Course 6 -->
+                <div class="course-card" data-level="advanced">
+                    <div class="course-image">
+                        <img src="https://images.unsplash.com/photo-1667372393119-3d4c48d07fc9?w=600&h=350&fit=crop" alt="DevOps">
+                        <span class="course-level">Advanced</span>
+                        <button class="play-btn"><i class="fas fa-play"></i></button>
+                    </div>
+                    <div class="course-content">
+                        <h3>DevOps & Deployment</h3>
+                        <p>Learn Docker, CI/CD, cloud deployment, and scaling applications for production.</p>
+                        <div class="course-stats">
+                            <span><i class="fas fa-book"></i> 28 Lessons</span>
+                            <span><i class="fas fa-clock"></i> 18 Hours</span>
+                            <span><i class="fas fa-users"></i> 680</span>
+                        </div>
+                        <div class="course-footer">
+                            <div class="course-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <span>4.7</span>
+                            </div>
+                            <span class="course-free">Free</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="load-more">
+                <button class="btn btn-outline" id="loadMoreBtn">View All Courses</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tutorials Section -->
+    <section id="tutorials" class="tutorials">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-subtitle">Quick Learning</span>
+                <h2 class="section-title">Latest Tutorials</h2>
+                <p class="section-description">Bite-sized lessons for rapid skill building</p>
+            </div>
+            
+            <div class="tutorials-grid">
+                <article class="tutorial-card">
+                    <div class="tutorial-icon"><i class="fab fa-js"></i></div>
+                    <div class="tutorial-content">
+                        <span class="tutorial-tag">JavaScript</span>
+                        <h3>Understanding Closures in 5 Minutes</h3>
+                        <p>A quick guide to one of JavaScript's most powerful concepts...</p>
+                        <div class="tutorial-meta">
+                            <span><i class="far fa-clock"></i> 5 min</span>
+                            <span><i class="far fa-eye"></i> 1.2K views</span>
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="tutorial-card">
+                    <div class="tutorial-icon"><i class="fab fa-css3-alt"></i></div>
+                    <div class="tutorial-content">
+                        <span class="tutorial-tag">CSS</span>
+                        <h3>CSS Grid vs Flexbox: When to Use Which</h3>
+                        <p>Master layout systems with practical examples...</p>
+                        <div class="tutorial-meta">
+                            <span><i class="far fa-clock"></i> 8 min</span>
+                            <span><i class="far fa-eye"></i> 980 views</span>
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="tutorial-card">
+                    <div class="tutorial-icon"><i class="fab fa-react"></i></div>
+                    <div class="tutorial-content">
+                        <span class="tutorial-tag">React</span>
+                        <h3>React Hooks Explained Simply</h3>
+                        <p>useState, useEffect, and custom hooks demystified...</p>
+                        <div class="tutorial-meta">
+                            <span><i class="far fa-clock"></i> 12 min</span>
+                            <span><i class="far fa-eye"></i> 2.1K views</span>
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="tutorial-card">
+                    <div class="tutorial-icon"><i class="fas fa-database"></i></div>
+                    <div class="tutorial-content">
+                        <span class="tutorial-tag">Database</span>
+                        <h3>SQL Joins Visual Guide</h3>
+                        <p>INNER, LEFT, RIGHT joins explained with diagrams...</p>
+                        <div class="tutorial-meta">
+                            <span><i class="far fa-clock"></i> 10 min</span>
+                            <span><i class="far fa-eye"></i> 850 views</span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Code Playground Preview -->
+    <section class="playground">
+        <div class="container">
+            <div class="playground-content">
+                <div class="playground-text">
+                    <span class="section-subtitle"><i class="fas fa-code"></i> Interactive</span>
+                    <h2>Try Code Instantly</h2>
+                    <p>Practice what you learn with our built-in code editor. Write, run, and experiment with code directly in your browser.</p>
+                    <ul class="playground-features">
+                        <li><i class="fas fa-check"></i> Support for 10+ languages</li>
+                        <li><i class="fas fa-check"></i> Real-time output</li>
+                        <li><i class="fas fa-check"></i> Auto-save your work</li>
+                        <li><i class="fas fa-check"></i> Share code snippets</li>
+                    </ul>
+                    <button class="btn btn-primary"><i class="fas fa-laptop-code"></i> Open Playground</button>
+                </div>
+                <div class="playground-preview">
+                    <div class="preview-editor">
+                        <div class="preview-header">
+                            <span>javascript</span>
+                            <button><i class="fas fa-play"></i> Run</button>
+                        </div>
+                        <pre><code><span class="comment">// Try it yourself!</span>
+<span class="keyword">const</span> greeting = <span class="string">"Hello, World!"</span>;
+<span class="function">console</span>.log(greeting);
+
+<span class="comment">// Create an array</span>
+<span class="keyword">const</span> numbers = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>];
+<span class="keyword">const</span> doubled = numbers.map(n => n * <span class="number">2</span>);
+<span class="function">console</span>.log(doubled);</code></pre>
+                    </div>
+                    <div class="preview-output">
+                        <div class="output-header">Output</div>
+                        <div class="output-content">
+                            <span class="output-line">Hello, World!</span>
+                            <span class="output-line">[2, 4, 6, 8, 10]</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter">
+        <div class="container">
+            <div class="newsletter-box">
+                <div class="newsletter-text">
+                    <h2>Join 10,000+ Learners</h2>
+                    <p>Get weekly tutorials, coding tips, and exclusive resources delivered to your inbox.</p>
+                </div>
+                <form class="newsletter-form" id="newsletterForm">
+                    <input type="email" placeholder="Enter your email" required>
+                    <button type="submit" class="btn btn-primary">Subscribe Free</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Instructor Section -->
+    <section id="about" class="instructor">
+        <div class="container">
+            <div class="instructor-card">
+                <div class="instructor-avatar instructor-logo-large">
+                    <img src="barakalogo.png" alt="Baraka Codex" class="instructor-logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="logo-icon-advanced" style="display:none;">
+                        <span class="logo-bracket">&lt;</span>
+                        <span class="logo-letters">BC</span>
+                        <span class="logo-bracket">/&gt;</span>
+                    </div>
+                </div>
+                <div class="instructor-info">
+                    <span class="instructor-label">Your Instructor</span>
+                    <h2>Baraka Codex</h2>
+                    <p class="instructor-title">Full Stack Developer & Educator</p>
+                    <p class="instructor-bio">With over 5 years of experience in web development and a passion for teaching, I created Baraka Codex to make quality coding education accessible to everyone. My goal is to help you become a confident developer through practical, project-based learning.</p>
+                    <div class="instructor-stats">
+                        <div><span class="number">50+</span><span class="label">Courses</span></div>
+                        <div><span class="number">200+</span><span class="label">Tutorials</span></div>
+                        <div><span class="number">10K+</span><span class="label">Students</span></div>
+                        <div><span class="number">5+</span><span class="label">Years</span></div>
+                    </div>
+                    <div class="instructor-socials">
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <a href="#" class="footer-logo">
+                        <img src="barakalogo.png" alt="Baraka Codex" class="footer-logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="logo-icon-advanced small" style="display:none;">
+                            <span class="logo-bracket">&lt;</span>
+                            <span class="logo-letters">BC</span>
+                            <span class="logo-bracket">/&gt;</span>
+                        </div>
+                        <span>Baraka<span>Codex</span></span>
+                    </a>
+                    <p>Making coding education accessible, practical, and free for everyone.</p>
+                    <div class="footer-socials">
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-discord"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Learn</h4>
+                        <ul>
+                            <li><a href="#">All Courses</a></li>
+                            <li><a href="#">Tutorials</a></li>
+                            <li><a href="#">Learning Paths</a></li>
+                            <li><a href="#">Code Playground</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Resources</h4>
+                        <ul>
+                            <li><a href="#">Blog</a></li>
+                            <li><a href="#">Cheat Sheets</a></li>
+                            <li><a href="#">Projects</a></li>
+                            <li><a href="#">Community</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Connect</h4>
+                        <ul>
+                            <li><a href="#">About</a></li>
+                            <li><a href="#">Contact</a></li>
+                            <li><a href="#">Newsletter</a></li>
+                            <li><a href="#">Support</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Baraka Codex. All rights reserved.</p>
+                <div class="footer-legal">
+                    <a href="#">Privacy</a>
+                    <a href="#">Terms</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top -->
+    <button class="back-to-top" id="backToTop"><i class="fas fa-arrow-up"></i></button>
+
+    <script type="module" src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,357 @@
+// ========================================
+// Baraka Codex - Online Coding Learning Platform
+// Powered by Supabase
+// ========================================
+
+import { 
+    supabase, 
+    signUp, 
+    signIn, 
+    signOut, 
+    getCurrentUser, 
+    getCourses, 
+    enrollInCourse,
+    subscribeToNewsletter,
+    initializeAuth 
+} from './supabase.js'
+
+// DOM Elements
+const loader = document.getElementById('loader');
+const progressBar = document.getElementById('progressBar');
+const navbar = document.getElementById('navbar');
+const hamburger = document.getElementById('hamburger');
+const navMenu = document.getElementById('navMenu');
+const navLinks = document.querySelectorAll('.nav-link');
+const themeToggle = document.getElementById('themeToggle');
+const filterTabs = document.querySelectorAll('.filter-tab');
+const courseCards = document.querySelectorAll('.course-card');
+const backToTop = document.getElementById('backToTop');
+const newsletterForm = document.getElementById('newsletterForm');
+
+// ========================================
+// LOADER
+// ========================================
+window.addEventListener('load', () => {
+    setTimeout(() => {
+        loader.classList.add('hidden');
+    }, 800);
+});
+
+// ========================================
+// PROGRESS BAR
+// ========================================
+window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const scrollPercent = (scrollTop / docHeight) * 100;
+    progressBar.style.width = scrollPercent + '%';
+});
+
+// ========================================
+// THEME TOGGLE
+// ========================================
+const currentTheme = localStorage.getItem('theme') || 'light';
+document.documentElement.setAttribute('data-theme', currentTheme);
+updateThemeIcon(currentTheme);
+
+themeToggle.addEventListener('click', () => {
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+    
+    document.documentElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    updateThemeIcon(newTheme);
+});
+
+function updateThemeIcon(theme) {
+    const icon = themeToggle.querySelector('i');
+    icon.className = theme === 'light' ? 'fas fa-moon' : 'fas fa-sun';
+}
+
+// ========================================
+// NAVIGATION
+// ========================================
+hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('active');
+    navMenu.classList.toggle('active');
+    document.body.classList.toggle('menu-open');
+});
+
+navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        navMenu.classList.remove('active');
+        document.body.classList.remove('menu-open');
+    });
+});
+
+window.addEventListener('scroll', () => {
+    const sections = document.querySelectorAll('section[id]');
+    const scrollY = window.scrollY;
+    
+    sections.forEach(section => {
+        const sectionTop = section.offsetTop - 100;
+        const sectionHeight = section.offsetHeight;
+        const sectionId = section.getAttribute('id');
+        
+        if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${sectionId}`) {
+                    link.classList.add('active');
+                }
+            });
+        }
+    });
+    
+    if (scrollY > 500) {
+        backToTop.classList.add('visible');
+    } else {
+        backToTop.classList.remove('visible');
+    }
+});
+
+navLinks.forEach(link => {
+    link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        const targetSection = document.querySelector(targetId);
+        
+        if (targetSection) {
+            const offsetTop = targetSection.offsetTop - 80;
+            window.scrollTo({
+                top: offsetTop,
+                behavior: 'smooth'
+            });
+        }
+    });
+});
+
+backToTop.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+// ========================================
+// COURSE FILTERING
+// ========================================
+filterTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+        const filter = tab.dataset.filter;
+        
+        filterTabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        
+        filterCourses(filter);
+    });
+});
+
+function filterCourses(filter) {
+    courseCards.forEach(card => {
+        const level = card.dataset.level;
+        
+        if (filter === 'all' || level === filter) {
+            card.style.display = '';
+            card.style.animation = 'fadeIn 0.5s ease';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+}
+
+// ========================================
+// NEWSLETTER FORM - SUPABASE INTEGRATION
+// ========================================
+newsletterForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const emailInput = newsletterForm.querySelector('input[type="email"]');
+    const submitBtn = newsletterForm.querySelector('button[type="submit"]');
+    const originalText = submitBtn.textContent;
+    const email = emailInput.value.trim();
+    
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Subscribing...';
+    
+    try {
+        // Subscribe via Supabase
+        const { data, error } = await subscribeToNewsletter(email);
+        
+        if (error) {
+            throw error;
+        }
+        
+        submitBtn.innerHTML = '<i class="fas fa-check"></i> Subscribed!';
+        showNotification('Welcome to Baraka Codex! Check your email for confirmation.', 'success');
+        newsletterForm.reset();
+        
+        // Log to Supabase analytics
+        console.log('📧 Newsletter subscription:', email);
+        
+    } catch (error) {
+        console.error('❌ Subscription error:', error);
+        submitBtn.innerHTML = '<i class="fas fa-exclamation-circle"></i> Error';
+        
+        if (error.message.includes('duplicate')) {
+            showNotification('You\'re already subscribed! 🎉', 'success');
+        } else {
+            showNotification('Something went wrong. Please try again.', 'error');
+        }
+    } finally {
+        setTimeout(() => {
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalText;
+        }, 3000);
+    }
+});
+
+// ========================================
+// NOTIFICATION
+// ========================================
+function showNotification(message, type = 'success') {
+    const existing = document.querySelector('.notification');
+    if (existing) existing.remove();
+    
+    const notification = document.createElement('div');
+    notification.className = `notification notification-${type}`;
+    notification.innerHTML = `
+        <span>${message}</span>
+        <button onclick="this.parentElement.remove()">&times;</button>
+    `;
+    
+    notification.style.cssText = `
+        position: fixed;
+        top: 100px;
+        right: 20px;
+        background: ${type === 'success' ? '#10b981' : '#ef4444'};
+        color: white;
+        padding: 1rem 1.5rem;
+        border-radius: 0.75rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.2);
+        z-index: 10000;
+        animation: slideIn 0.3s ease;
+    `;
+    
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.style.animation = 'slideOut 0.3s ease forwards';
+        setTimeout(() => notification.remove(), 300);
+    }, 5000);
+}
+
+// ========================================
+// SCROLL REVEAL ANIMATIONS
+// ========================================
+const revealElements = document.querySelectorAll('.course-card, .path-card, .tutorial-card, .section-header');
+
+const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+            revealObserver.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.1 });
+
+revealElements.forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(30px)';
+    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    revealObserver.observe(el);
+});
+
+// ========================================
+// PLAY BUTTON CLICK
+// ========================================
+document.querySelectorAll('.play-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        showNotification('Course preview coming soon!', 'success');
+    });
+});
+
+// ========================================
+// PATH CARD CLICKS
+// ========================================
+document.querySelectorAll('.path-link').forEach(link => {
+    link.addEventListener('click', (e) => {
+        e.preventDefault();
+        showNotification('Learning path coming soon!', 'success');
+    });
+});
+
+// ========================================
+// TUTORIAL CARD CLICKS
+// ========================================
+document.querySelectorAll('.tutorial-card').forEach(card => {
+    card.addEventListener('click', () => {
+        showNotification('Tutorial opening in new tab...', 'success');
+    });
+    card.style.cursor = 'pointer';
+});
+
+// ========================================
+// ADD ANIMATION STYLES
+// ========================================
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    
+    @keyframes slideIn {
+        from { transform: translateX(100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+    }
+    
+    @keyframes slideOut {
+        from { transform: translateX(0); opacity: 1; }
+        to { transform: translateX(100%); opacity: 0; }
+    }
+`;
+document.head.appendChild(style);
+
+// ========================================
+// SUPABASE INITIALIZATION
+// ========================================
+
+async function initSupabase() {
+    try {
+        // Initialize auth state
+        const user = await initializeAuth()
+        
+        if (user) {
+            // User is logged in - update UI
+            console.log('✅ User authenticated:', user.email)
+            // TODO: Update navbar to show user avatar/name
+            // TODO: Load user progress
+        } else {
+            console.log('👤 No active session')
+        }
+        
+        // Load courses from Supabase
+        const { data: courses, error } = await getCourses()
+        if (courses) {
+            console.log('📚 Courses loaded:', courses.length)
+            // TODO: Dynamically render courses
+        }
+        
+    } catch (error) {
+        console.error('❌ Supabase initialization error:', error)
+    }
+}
+
+// Initialize when DOM is ready
+document.addEventListener('DOMContentLoaded', initSupabase)
+
+// ========================================
+// CONSOLE MESSAGE
+// ========================================
+console.log('%c🚀 Welcome to Baraka Codex!', 'font-size: 24px; font-weight: bold; color: #6366f1;');
+console.log('%cPowered by Supabase ⚡', 'font-size: 14px; color: #3ecf8e;');
+console.log('%cStart your coding journey today!', 'font-size: 14px; color: #64748b;');
+console.log('%cHappy Learning! 💻', 'font-size: 14px; color: #10b981;');
