@@ -1,21 +1,91 @@
 // ========================================
 // Baraka Codex - Online Coding Learning Platform
-// Powered by Supabase
+// Pure HTML, CSS, JavaScript - No Build Tools Required
 // ========================================
 
-import { 
-    supabase, 
-    signUp, 
-    signIn, 
-    signOut, 
-    getCurrentUser, 
-    getCourses, 
-    enrollInCourse,
-    subscribeToNewsletter,
-    initializeAuth 
-} from './supabase.js'
+// ========================================
+// SUPABASE CONFIGURATION (VANILLA JS)
+// ========================================
+const SUPABASE_URL = 'https://poyzhoxnvbfumgtcklia.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_riXA6qvXzB6Bo3z8bJYRUg_D4E8fVWV';
 
+// Initialize Supabase client from CDN
+const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY, {
+    auth: {
+        autoRefreshToken: true,
+        persistSession: true,
+        detectSessionInUrl: true
+    }
+});
+
+// ========================================
+// SUPABASE HELPER FUNCTIONS
+// ========================================
+
+async function signUp(email, password, metadata = {}) {
+    return await supabaseClient.auth.signUp({ email, password, options: { data: metadata } });
+}
+
+async function signIn(email, password) {
+    return await supabaseClient.auth.signInWithPassword({ email, password });
+}
+
+async function signOut() {
+    return await supabaseClient.auth.signOut();
+}
+
+async function getCurrentUser() {
+    return await supabaseClient.auth.getUser();
+}
+
+async function getSession() {
+    return await supabaseClient.auth.getSession();
+}
+
+async function getCourses() {
+    return await supabaseClient.from('courses').select('*').order('created_at', { ascending: false });
+}
+
+async function enrollInCourse(userId, courseId) {
+    return await supabaseClient.from('enrollments').insert({
+        user_id: userId,
+        course_id: courseId,
+        enrolled_at: new Date().toISOString()
+    });
+}
+
+async function subscribeToNewsletter(email) {
+    return await supabaseClient.from('newsletter_subscribers').insert({
+        email: email,
+        subscribed_at: new Date().toISOString()
+    });
+}
+
+async function initializeAuth() {
+    const { data: { session }, error } = await getSession();
+    if (error) {
+        console.error('❌ Auth initialization error:', error);
+        return null;
+    }
+    return session ? session.user : null;
+}
+
+// Auth state listener
+supabaseClient.auth.onAuthStateChange((event, session) => {
+    console.log('🔄 Auth state changed:', event);
+    switch (event) {
+        case 'SIGNED_IN':
+            console.log('✅ User signed in:', session.user.email);
+            break;
+        case 'SIGNED_OUT':
+            console.log('👋 User signed out');
+            break;
+    }
+});
+
+// ========================================
 // DOM Elements
+// ========================================
 const loader = document.getElementById('loader');
 const progressBar = document.getElementById('progressBar');
 const navbar = document.getElementById('navbar');

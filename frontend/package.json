@@ -1,25 +1,22 @@
 {
   "name": "baraka-codex",
   "version": "1.0.0",
-  "description": "Baraka Codex - Online Coding Learning Platform",
-  "type": "module",
+  "description": "Baraka Codex - Online Coding Learning Platform (Vanilla HTML/CSS/JS)",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
-  },
-  "dependencies": {
-    "@supabase/supabase-js": "^2.39.0"
-  },
-  "devDependencies": {
-    "vite": "^5.0.0"
+    "start": "echo 'Open index.html directly in browser - No server required!'",
+    "serve": "npx serve . -p 3000"
   },
   "keywords": [
     "education",
     "coding",
     "learning",
-    "supabase"
+    "supabase",
+    "vanilla-js",
+    "html",
+    "css",
+    "javascript"
   ],
   "author": "Baraka Codex",
-  "license": "MIT"
+  "license": "MIT",
+  "note": "This project uses CDN for dependencies. No npm install required!"
 }

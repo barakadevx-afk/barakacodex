@@ -14,41 +14,36 @@
 
 ## Tech Stack
 
-- **Frontend:** HTML5, CSS3, Vanilla JavaScript
+- **Frontend:** HTML5, CSS3, Vanilla JavaScript (No build tools!)
 - **Backend:** Supabase (PostgreSQL + Auth + Storage)
-- **Build Tool:** Vite
-- **Icons:** Font Awesome
-- **Fonts:** Inter, Fira Code
+- **Supabase Client:** Loaded via CDN
+- **Icons:** Font Awesome (CDN)
+- **Fonts:** Inter, Fira Code (Google Fonts)
 
 ## Setup Instructions
 
-### 1. Install Dependencies
+### 🚀 Quick Start (No Build Required!)
+
+Simply open `index.html` in your browser:
 
 ```bash
-npm install
+# Option 1: Direct open
+open index.html
+
+# Option 2: Use any static server (optional)
+npx serve . -p 3000
 ```
 
-### 2. Configure Environment Variables
+### 2. Configure Supabase
 
-Create a `.env` file in the root directory:
+Supabase credentials are already configured in `script.js`:
 
-```env
-VITE_SUPABASE_URL=https://poyzhoxnvbfumgtcklia.supabase.co
-VITE_SUPABASE_PUBLISHABLE_KEY=sb_publishable_riXA6qvXzB6Bo3z8bJYRUg_D4E8fVWV
-VITE_APP_NAME=Baraka Codex
+```javascript
+const SUPABASE_URL = 'https://poyzhoxnvbfumgtcklia.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_riXA6qvXzB6Bo3z8bJYRUg_D4E8fVWV';
 ```
 
-### 3. Run Development Server
-
-```bash
-npm run dev
-```
-
-### 4. Build for Production
-
-```bash
-npm run build
-```
+No environment variables needed! 🎉
 
 ## Database Schema
 
@@ -155,14 +150,14 @@ const subscription = subscribeToUserProgress(userId, (payload) => {
 ```
 frontend/
 ├── index.html              # Main HTML file
-├── styles.css              # All styles
-├── script.js               # Main JavaScript
-├── supabase.js             # Supabase client & helpers
-├── .env                    # Environment variables
-├── package.json            # Dependencies
-├── barakalogo.png          # Logo (add manually)
+├── styles.css              # All styles (3,257 lines)
+├── script.js               # All JavaScript + Supabase
+├── package.json            # Project info (no deps!)
+├── barakalogo.png          # Logo
 └── README.md               # This file
 ```
+
+**Note:** No `node_modules/`, no build step, no bundler required!
 
 ## Customization
 
@@ -183,18 +178,30 @@ Replace `barakalogo.png` with your own logo. Recommended size: 512x512px with tr
 
 ## Deployment
 
-### Deploy to Netlify/Vercel
+### Deploy Anywhere (Static Hosting)
 
+Since this is pure HTML/CSS/JS, you can deploy to ANY static host:
+
+**Option 1: Netlify**
+1. Drag & drop the `frontend/` folder
+2. Done! ✅
+
+**Option 2: Vercel**
+```bash
+npx vercel --prod
+```
+
+**Option 3: GitHub Pages**
 1. Push to GitHub
-2. Connect to Netlify/Vercel
-3. Add environment variables in dashboard
-4. Deploy!
+2. Enable GitHub Pages in settings
+3. Select `main` branch
 
-### Environment Variables for Production
-
-Make sure to set these in your hosting platform:
-- `VITE_SUPABASE_URL`
-- `VITE_SUPABASE_PUBLISHABLE_KEY`
+**Option 4: Any Web Server**
+Just upload these files:
+- `index.html`
+- `styles.css`
+- `script.js`
+- `barakalogo.png`
 
 ## License
 
