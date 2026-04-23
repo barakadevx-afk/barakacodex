@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutorials - Baraka Codex</title>
+    <link rel="icon" type="image/png" href="barakalogo.png">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.0/dist/umd/supabase.min.js"></script>
+</head>
+<body>
+    <!-- Top Navigation -->
+    <nav class="navbar tutorials-nav" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <img src="barakalogo.png" alt="Baraka Codex" class="logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="logo-icon-advanced" style="display:none;">
+                    <span class="logo-bracket">&lt;</span>
+                    <span class="logo-letters">BC</span>
+                    <span class="logo-bracket">/&gt;</span>
+                </div>
+                <span class="logo-text">Baraka<span>Codex</span></span>
+            </a>
+            <div class="tutorials-search">
+                <input type="text" placeholder="Search tutorials..." id="tutorialSearch">
+                <button><i class="fas fa-search"></i></button>
+            </div>
+            <div class="nav-actions">
+                <button class="theme-toggle" id="themeToggle"><i class="fas fa-moon"></i></button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="tutorials-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="tutorials-sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h3><i class="fas fa-graduation-cap"></i> Tutorials</h3>
+                <button class="sidebar-toggle" id="sidebarToggle"><i class="fas fa-bars"></i></button>
+            </div>
+            
+            <div class="sidebar-menu">
+                <div class="menu-section">
+                    <h4>HTML & CSS</h4>
+                    <ul>
+                        <li><a href="#html-intro" class="active"><i class="fab fa-html5"></i> HTML Introduction</a></li>
+                        <li><a href="#html-basics"><i class="fab fa-html5"></i> HTML Basics</a></li>
+                        <li><a href="#html-elements"><i class="fab fa-html5"></i> HTML Elements</a></li>
+                        <li><a href="#css-intro"><i class="fab fa-css3-alt"></i> CSS Introduction</a></li>
+                        <li><a href="#css-selectors"><i class="fab fa-css3-alt"></i> CSS Selectors</a></li>
+                        <li><a href="#css-flexbox"><i class="fab fa-css3-alt"></i> CSS Flexbox</a></li>
+                        <li><a href="#css-grid"><i class="fab fa-css3-alt"></i> CSS Grid</a></li>
+                    </ul>
+                </div>
+                
+                <div class="menu-section">
+                    <h4>JavaScript</h4>
+                    <ul>
+                        <li><a href="#js-intro"><i class="fab fa-js"></i> JS Introduction</a></li>
+                        <li><a href="#js-basics"><i class="fab fa-js"></i> JS Basics</a></li>
+                        <li><a href="#js-functions"><i class="fab fa-js"></i> JS Functions</a></li>
+                        <li><a href="#js-dom"><i class="fab fa-js"></i> JS DOM</a></li>
+                        <li><a href="#js-async"><i class="fab fa-js"></i> JS Async</a></li>
+                        <li><a href="#js-es6"><i class="fab fa-js"></i> ES6 Features</a></li>
+                    </ul>
+                </div>
+                
+                <div class="menu-section">
+                    <h4>Frameworks</h4>
+                    <ul>
+                        <li><a href="#react-intro"><i class="fab fa-react"></i> React Basics</a></li>
+                        <li><a href="#react-hooks"><i class="fab fa-react"></i> React Hooks</a></li>
+                        <li><a href="#vue-intro"><i class="fab fa-vuejs"></i> Vue Basics</a></li>
+                        <li><a href="#node-intro"><i class="fab fa-node-js"></i> Node.js</a></li>
+                    </ul>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="tutorials-content">
+            <article class="tutorial-article" id="html-intro">
+                <header class="tutorial-header">
+                    <div class="tutorial-breadcrumb">
+                        <a href="index.html">Home</a> <i class="fas fa-chevron-right"></i>
+                        <a href="#">HTML</a> <i class="fas fa-chevron-right"></i>
+                        <span>Introduction</span>
+                    </div>
+                    <h1>HTML Introduction</h1>
+                    <p class="tutorial-desc">Learn the basics of HTML - the foundation of web development</p>
+                </header>
+
+                <div class="tutorial-body">
+                    <section class="tutorial-section">
+                        <h2>What is HTML?</h2>
+                        <p>HTML (HyperText Markup Language) is the standard markup language for documents designed to be displayed in a web browser. It defines the structure and content of web pages.</p>
+                        
+                        <div class="code-example">
+                            <div class="code-header">
+                                <span>HTML Example</span>
+                                <button class="try-btn" onclick="openTryIt('html-basic')"><i class="fas fa-play"></i> Try it Yourself</button>
+                            </div>
+                            <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;My First Page&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Hello World!&lt;/h1&gt;
+    &lt;p&gt;This is my first web page.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                        </div>
+                    </section>
+
+                    <section class="tutorial-section">
+                        <h2>HTML Structure</h2>
+                        <p>Every HTML document follows a basic structure:</p>
+                        <ul class="tutorial-list">
+                            <li><code>&lt;!DOCTYPE html&gt;</code> - Document declaration</li>
+                            <li><code>&lt;html&gt;</code> - Root element</li>
+                            <li><code>&lt;head&gt;</code> - Metadata container</li>
+                            <li><code>&lt;body&gt;</code> - Visible content</li>
+                        </ul>
+                    </section>
+
+                    <section class="tutorial-section">
+                        <h2>Key Points</h2>
+                        <div class="info-box info">
+                            <i class="fas fa-info-circle"></i>
+                            <p>HTML uses "tags" to mark up content. Most tags come in pairs: opening <code>&lt;tag&gt;</code> and closing <code>&lt;/tag&gt;</code>.</p>
+                        </div>
+                        
+                        <div class="info-box warning">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <p>Always close your tags! Unclosed tags can cause unexpected layout issues.</p>
+                        </div>
+                    </section>
+
+                    <div class="tutorial-nav">
+                        <a href="#" class="btn btn-outline"><i class="fas fa-arrow-left"></i> Previous</a>
+                        <a href="#html-basics" class="btn btn-primary">Next <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </article>
+        </main>
+    </div>
+
+    <!-- Try It Modal -->
+    <div class="tryit-modal" id="tryitModal">
+        <div class="tryit-container">
+            <div class="tryit-header">
+                <h3><i class="fas fa-code"></i> Try it Yourself</h3>
+                <button class="close-btn" onclick="closeTryIt()"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="tryit-editor">
+                <div class="editor-tabs">
+                    <button class="tab-btn active" data-tab="html">HTML</button>
+                    <button class="tab-btn" data-tab="css">CSS</button>
+                    <button class="tab-btn" data-tab="js">JavaScript</button>
+                </div>
+                <div class="editor-panels">
+                    <textarea id="htmlCode" class="code-panel active" placeholder="<!-- Write HTML here -->"></textarea>
+                    <textarea id="cssCode" class="code-panel" placeholder="/* Write CSS here */"></textarea>
+                    <textarea id="jsCode" class="code-panel" placeholder="// Write JavaScript here"></textarea>
+                </div>
+                <button class="run-btn" onclick="runCode()"><i class="fas fa-play"></i> Run Code</button>
+            </div>
+            <div class="tryit-preview">
+                <div class="preview-header">Output</div>
+                <iframe id="previewFrame"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

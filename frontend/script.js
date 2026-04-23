@@ -419,9 +419,164 @@ async function initSupabase() {
 document.addEventListener('DOMContentLoaded', initSupabase)
 
 // ========================================
+// TRY IT EDITOR FUNCTIONS
+// ========================================
+
+const codeExamples = {
+    'html-basic': {
+        html: `<!DOCTYPE html>
+<html>
+<head>
+    <title>My First Page</title>
+</head>
+<body>
+    <h1>Hello World!</h1>
+    <p>This is my first web page.</p>
+    <button onclick="alert('Welcome!')">Click Me</button>
+</body>
+</html>`,
+        css: `body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background: #f0f0f0;
+}
+
+h1 {
+    color: #6366f1;
+}
+
+button {
+    background: #10b981;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}`,
+        js: `// JavaScript runs automatically
+console.log('Page loaded!');
+
+// You can add interactivity here
+function greet(name) {
+    return 'Hello, ' + name + '!';
+}`
+    }
+};
+
+function openTryIt(exampleId) {
+    const modal = document.getElementById('tryitModal');
+    const htmlCode = document.getElementById('htmlCode');
+    const cssCode = document.getElementById('cssCode');
+    const jsCode = document.getElementById('jsCode');
+    
+    const example = codeExamples[exampleId] || codeExamples['html-basic'];
+    
+    htmlCode.value = example.html;
+    cssCode.value = example.css;
+    jsCode.value = example.js;
+    
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    
+    // Run code immediately
+    runCode();
+}
+
+function closeTryIt() {
+    const modal = document.getElementById('tryitModal');
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+function runCode() {
+    const html = document.getElementById('htmlCode').value;
+    const css = document.getElementById('cssCode').value;
+    const js = document.getElementById('jsCode').value;
+    
+    const frame = document.getElementById('previewFrame');
+    const doc = frame.contentDocument || frame.contentWindow.document;
+    
+    const fullCode = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <style>${css}</style>
+        </head>
+        <body>
+            ${html}
+            <script>${js}<\/script>
+        </body>
+        </html>
+    `;
+    
+    doc.open();
+    doc.write(fullCode);
+    doc.close();
+}
+
+// Tab switching in Try-It editor
+document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const tab = btn.dataset.tab;
+        
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.code-panel').forEach(p => p.classList.remove('active'));
+        
+        btn.classList.add('active');
+        document.getElementById(tab + 'Code').classList.add('active');
+    });
+});
+
+// Close modal on escape
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        closeTryIt();
+    }
+});
+
+// ========================================
+// TUTORIALS PAGE SIDEBAR
+// ========================================
+
+const sidebarToggle = document.getElementById('sidebarToggle');
+const sidebar = document.getElementById('sidebar');
+
+if (sidebarToggle && sidebar) {
+    sidebarToggle.addEventListener('click', () => {
+        sidebar.classList.toggle('active');
+    });
+    
+    // Close sidebar when clicking on a link (mobile)
+    sidebar.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            if (window.innerWidth <= 768) {
+                sidebar.classList.remove('active');
+            }
+        });
+    });
+}
+
+// Tutorial search
+document.getElementById('tutorialSearch')?.addEventListener('input', (e) => {
+    const searchTerm = e.target.value.toLowerCase();
+    const links = document.querySelectorAll('.menu-section li a');
+    
+    links.forEach(link => {
+        const text = link.textContent.toLowerCase();
+        link.parentElement.style.display = text.includes(searchTerm) ? 'block' : 'none';
+    });
+});
+
+// ========================================
 // CONSOLE MESSAGE
 // ========================================
 console.log('%c🚀 Welcome to Baraka Codex!', 'font-size: 24px; font-weight: bold; color: #6366f1;');
 console.log('%cPowered by Supabase ⚡', 'font-size: 14px; color: #3ecf8e;');
 console.log('%cStart your coding journey today!', 'font-size: 14px; color: #64748b;');
 console.log('%cHappy Learning! 💻', 'font-size: 14px; color: #10b981;');
+
+// Special message for tutorials page
+if (document.querySelector('.tutorials-layout')) {
+    console.log('%c📚 Tutorials Mode Active', 'font-size: 14px; color: #f59e0b;');
+    console.log('%cTry the code editor! Click "Try it Yourself" buttons', 'font-size: 12px; color: #64748b;');
+}
